@@ -21,7 +21,6 @@
 
         #timer-setup {
             text-align: center;
-            padding-top: 200px;
             position: relative;
             left: 0;
 
@@ -101,7 +100,6 @@
     <div class="container">
         <form action="" id="timer-setup">
             <h1>SESA Countdown</h1>
-            <h6>SESA Countdown recommends Chrome ;)</h6>
 
             <input type="number" id="minutes" min="0" value="15"/>
             <label for="minutes">Minutes</label>
@@ -154,7 +152,7 @@
                 seconds = secondsLeft - (minutes * 60);
 
                 $countdown.innerHTML = zeroPad(minutes, 2) + ":" + zeroPad(seconds, 2);
-                $countdownContainer.style['background-color'] = "rgba(255, 0, 0, " + (1 - (secondsLeft / totalSeconds)) + ")"
+                $countdownContainer.style.backgroundColor = "rgba(255, 0, 0, " + (1 - (secondsLeft / totalSeconds)) + ")"
 
                 if (secondsLeft / totalSeconds <= 0.2 && !warned) {
                     beep(200, 1);
@@ -171,7 +169,7 @@
         function cancelCountdown() {
             clearInterval(countDown);
 
-            $countdownContainer.style['background-color'] = null;
+            $countdownContainer.style.backgroundColor = null;
             $timerSetupForm.style.left = 0;
             $countdownContainer.style.left = -10000;
             $countdown.innerHTML = "15:00";
@@ -188,30 +186,37 @@
         }
 
         var beep = (function () {
-            var ctx = new(window.audioContext || window.webkitAudioContext);
-            return function (duration, type, finishedCallback) {
+            var webaudio = window.audioContext || window.webkitAudioContext;
 
-                duration = +duration;
+            if (webaudio) {
+                var ctx = new webaudio;
 
-                // Only 0-4 are valid types.
-                type = (type % 5) || 0;
+                return function (duration, type, finishedCallback) {
 
-                if (typeof finishedCallback != "function") {
-                    finishedCallback = function () {};
-                }
+                    duration = +duration;
 
-                var osc = ctx.createOscillator();
+                    // Only 0-4 are valid types.
+                    type = (type % 5) || 0;
 
-                osc.type = type;
+                    if (typeof finishedCallback != "function") {
+                        finishedCallback = function () {};
+                    }
 
-                osc.connect(ctx.destination);
-                osc.noteOn(0);
+                    var osc = ctx.createOscillator();
 
-                setTimeout(function () {
-                    osc.noteOff(0);
-                    finishedCallback();
-                }, duration);
-            };
+                    osc.type = type;
+
+                    osc.connect(ctx.destination);
+                    osc.noteOn(0);
+
+                    setTimeout(function () {
+                        osc.noteOff(0);
+                        finishedCallback();
+                    }, duration);
+                };
+            } else {
+                return function() {};
+            }
         })();
 
     </script>
