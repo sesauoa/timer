@@ -14,6 +14,12 @@
             overflow: hidden;
         }
 
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
         .container {
             width: 75%;
             margin: auto;
@@ -31,21 +37,29 @@
         }
 
         #timer-setup > input {
-            width: 100px;
-            height: 41px;
+            font-family: "Helvetica", "Arial", "sans-serif";
+            width: 80px;
+            padding: 5px;
             font-size: 100%;
+            border: 1px solid gainsboro;
+            border-radius: 3px;
+            box-shadow: inset 0 0 1px 1px gainsboro;
         }
 
         #timer-setup > label {
             display: inline-block;
-            vertical-align: bottom;
         }
 
         #timer-setup > button {
-            font-size: 80%;
-            display: inline-block;
-            vertical-align: top;
-            height: 41px;
+            margin-left: 50px;
+            font-size: 100%;
+            font-family: "Helvetica", "Arial", "sans-serif";
+            padding: 5px 15px;
+
+            background: whitesmoke;
+            border: 1px solid gainsboro;
+            border-radius: 3px;
+            box-shadow: inset 0 0 1px gainsboro;
         }
 
         #countdown {
@@ -57,10 +71,10 @@
             width: 100%;
             background-color: none;
 
-            -moz-transition: left 0.5s;
-            -webkit-transition: left 0.5s;
-            -o-transition: left 0.5s;
-            transition: left 0.5s;
+            -moz-transition: background-color 1s, left 0.5s;
+            -webkit-transition: background-color 1s, left 0.5s;
+            -o-transition: background-color 1s, left 0.5s;
+            transition: background-color 1s, left 0.5s;
         }
 
         #countdown > .display {
@@ -102,10 +116,10 @@
             <h1>SESA Countdown</h1>
 
             <input type="number" id="minutes" min="0" value="15"/>
-            <label for="minutes">Minutes</label>
+            <label for="minutes">minutes</label>
 
             <input type="number" id="seconds" min="0" max="59" value="00" />
-            <label for="seconds">Seconds</label>
+            <label for="seconds">seconds</label>
 
             <button type="submit">Begin</button>
         </form>
