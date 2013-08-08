@@ -160,7 +160,7 @@
                 seconds = secondsElapsed - (minutes * 60);
 
                 $countdown.innerHTML = zeroPad(minutes, 2) + ":" + zeroPad(seconds, 2);
-                $countdownContainer.style.backgroundColor = "rgba(255, 0, 0, " + (secondsElapsed / totalSeconds) + ")"
+                $countdownContainer.style.backgroundColor = "rgba(255, 0, 0, " + (secondsElapsed / totalSeconds) * (secondsElapsed / totalSeconds) + ")"
 
                 if (secondsElapsed / totalSeconds >= 0.8 && !warned) {
                     beep(200, 1);
@@ -169,7 +169,7 @@
 
                 if (secondsElapsed >= totalSeconds) {
                     beep(200, 2);
-                    if (!blinker) blinker = blink($countdown, 333);
+                    if (!blinker) blinker = blink($countdown, 400);
 
                     // cancelCountdown();
                 }
