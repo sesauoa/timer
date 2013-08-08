@@ -170,10 +170,8 @@
 
         function cancelCountdown() {
             clearInterval(countDown);
-            resetCountdown();
-        }
 
-        function resetCountdown() {
+            $countdownContainer.style['background-color'] = null;
             $timerSetupForm.style.left = 0;
             $countdownContainer.style.left = -10000;
             $countdown.innerHTML = "15:00";
@@ -213,7 +211,6 @@
                     osc.noteOff(0);
                     finishedCallback();
                 }, duration);
-
             };
         })();
 
