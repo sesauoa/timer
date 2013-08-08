@@ -1,79 +1,222 @@
-<!DOCTYPE html>
 <html>
+<head>
+    <title>SESA Countdown</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-weight: 100;
+        }
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Timer : A simple HTML5 based timer for timing presentations" />
+        html, body {
+            font-family: "Helvetica", "Arial", "sans-serif";
+            font-size: 150%;
+            font-weight: 100;
+            overflow: hidden;
+        }
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+        .container {
+            width: 75%;
+            margin: auto;
+        }
 
-    <title>Timer</title>
-  </head>
+        #timer-setup {
+            text-align: center;
+            padding-top: 200px;
+            position: relative;
+            left: 0;
 
-  <body>
+            -moz-transition: left 0.5s;
+            -webkit-transition: left 0.5s;
+            -o-transition: left 0.5s;
+            transition: left 0.5s;
+        }
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/ausesa/timer">View on GitHub</a>
+        #timer-setup > input {
+            width: 100px;
+            height: 41px;
+            font-size: 100%;
+        }
 
-          <h1 id="project_title">Timer</h1>
-          <h2 id="project_tagline">A simple HTML5 based timer for timing presentations</h2>
+        #timer-setup > label {
+            display: inline-block;
+            vertical-align: bottom;
+        }
 
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/ausesa/timer/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/ausesa/timer/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
+        #timer-setup > button {
+            font-size: 80%;
+            display: inline-block;
+            vertical-align: top;
+            height: 41px;
+        }
+
+        #countdown {
+            box-shadow: 0 0 5px gray;
+            position: fixed;
+            top: 33%;
+            left: -10000;
+            height: 180px;
+            width: 100%;
+            background-color: none;
+
+            -moz-transition: left 0.5s;
+            -webkit-transition: left 0.5s;
+            -o-transition: left 0.5s;
+            transition: left 0.5s;
+        }
+
+        #countdown > .display {
+            margin: 10px 0 0 0;
+            font-size: 3.8em;
+            text-align: center;
+        }
+
+        #countdown > .cancel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: none;
+            border: none;
+            border-radius: 4px;
+            box-shadow: inset 0 0 1px gray;
+            width: 20px;
+            height: 20px;
+
+            -moz-transition: background-color 1s;
+            -webkit-transition: background-color 1s;
+            -o-transition: background-color 1s;
+            transition: background-color 1s;
+        }
+
+        #countdown > .cancel:hover {
+            background-color: lightcoral;
+        }
+
+        #countdown > .cancel:active {
+            box-shadow: inset 0 0 15px gray;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <form action="" id="timer-setup">
+            <h1>SESA Countdown</h1>
+            <h6>SESA Countdown recommends Chrome ;)</h6>
+
+            <input type="number" id="minutes" min="0" value="15"/>
+            <label for="minutes">Minutes</label>
+
+            <input type="number" id="seconds" min="0" max="59" value="00" />
+            <label for="seconds">Seconds</label>
+
+            <button type="submit">Begin</button>
+        </form>
+
+        <div id="countdown">
+            <h1 class="display">15:00</h1>
+            <button class="cancel">&times;</button>
+        </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+    <script>
+        var $timerSetupForm = document.querySelector("#timer-setup");
+        var $countdownContainer = document.querySelector("#countdown");
+        var $countdown = document.querySelector(".display");
+        var $cancelCountdown = document.querySelector(".cancel");
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+        var minutes = 15;
+        var seconds = 0;
+        var countDown;
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+        $timerSetupForm.onsubmit = function() {
+            minutes = Number(document.querySelector("#minutes").value);
+            seconds = Number(document.querySelector("#seconds").value);
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+            countDown = beginCountdown(minutes, seconds);
+            return false;
+        }
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+        $cancelCountdown.onclick = cancelCountdown;
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+        function beginCountdown(minutes, seconds) {
+            $timerSetupForm.style.left = 10000;
+            $countdownContainer.style.left = 0;
+            $countdown.innerHTML = zeroPad(minutes, 2) + ":" + zeroPad(seconds, 2);
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+            var totalSeconds = (60 * minutes) + seconds;
+            var secondsLeft = totalSeconds;
+            var warned = false;
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+            return setInterval(function() {
+                secondsLeft -= 1;
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+                minutes = Math.floor(secondsLeft / 60);
+                seconds = secondsLeft - (minutes * 60);
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+                $countdown.innerHTML = zeroPad(minutes, 2) + ":" + zeroPad(seconds, 2);
+                $countdownContainer.style['background-color'] = "rgba(255, 0, 0, " + (1 - (secondsLeft / totalSeconds)) + ")"
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+                if (secondsLeft / totalSeconds <= 0.2 && !warned) {
+                    beep(200, 1);
+                    warned = true;
+                }
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
+                if (secondsLeft <= 0) {
+                    beep(200, 2);
+                    cancelCountdown();
+                }
+            }, 1000);
+        }
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Timer maintained by <a href="https://github.com/ausesa">ausesa</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
+        function cancelCountdown() {
+            clearInterval(countDown);
+            resetCountdown();
+        }
 
-    
+        function resetCountdown() {
+            $timerSetupForm.style.left = 0;
+            $countdownContainer.style.left = -10000;
+            $countdown.innerHTML = "15:00";
+        }
 
-  </body>
+        function zeroPad(number, numLength) {
+            numStr = number.toString();
+
+            while (numStr.length != numLength) {
+                numStr = "0" + numStr;
+            }
+
+            return numStr;
+        }
+
+        var beep = (function () {
+            var ctx = new(window.audioContext || window.webkitAudioContext);
+            return function (duration, type, finishedCallback) {
+
+                duration = +duration;
+
+                // Only 0-4 are valid types.
+                type = (type % 5) || 0;
+
+                if (typeof finishedCallback != "function") {
+                    finishedCallback = function () {};
+                }
+
+                var osc = ctx.createOscillator();
+
+                osc.type = type;
+
+                osc.connect(ctx.destination);
+                osc.noteOn(0);
+
+                setTimeout(function () {
+                    osc.noteOff(0);
+                    finishedCallback();
+                }, duration);
+
+            };
+        })();
+
+    </script>
+</body>
 </html>
