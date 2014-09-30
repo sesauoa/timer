@@ -8,13 +8,20 @@
     <div class="container">
         <form action="" id="timer-setup">
             <h1>SESA Stopwatch</h1>
-
+			
             <input type="number" id="minutes" min="0" value="15"/>
-            <label for="minutes">minutes</label>
+            <label for="minutes">Minutes</label>
 
             <input type="number" id="seconds" min="0" max="59" value="00" />
-            <label for="seconds">seconds</label>
-
+            <label for="seconds">Seconds</label>
+			<br>
+			
+			<input type="radio" id="upwards" name="direction" value="up" checked>
+			<label for="upwards">Upwards</label>
+			<input type="radio" id="direction" name="direction" value="down">
+			<label for="upwards">Downwards</label>
+			<br>
+			
             <button type="submit">Begin</button>
         </form>
 

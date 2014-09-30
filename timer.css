@@ -1,99 +1,106 @@
 * {
-    box-sizing: border-box;
-    font-weight: 100;
+	box-sizing: border-box;
+	font-weight: 100;
 }
 
 html, body {
-    font-family: "Helvetica", "Arial", "sans-serif";
-    font-size: 100%;
-    font-size: 150%;
-    font-weight: 100;
-    overflow: hidden;
+	font-family: "Helvetica", "Arial", "sans-serif";
+	font-size: 100%;
+	font-size: 150%;
+	font-weight: 100;
+	overflow: hidden;
 }
 
 button {
-    font-family: "Helvetica", "Arial", "sans-serif";
-    background: whitesmoke;
-    border: 1px solid gainsboro;
-    border-radius: 3px;
-    box-shadow: inset 0 0 1px gainsboro;
+	font-family: "Helvetica", "Arial", "sans-serif";
+	background: whitesmoke;
+	border: 1px solid gainsboro;
+	border-radius: 3px;
+	box-shadow: inset 0 0 1px gainsboro;
 }
 
 button:hover {
-    box-shadow: inset 0 0 3px gainsboro, 0 0 2px orange;
+	box-shadow: inset 0 0 3px gainsboro, 0 0 2px orange;
 }
 
 button:active {
-    box-shadow: inset 0 0 8px gray;
+	box-shadow: inset 0 0 8px gray;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 .container {
-    width: 75%;
-    margin: auto;
+	width: 75%;
+	margin: auto;
 }
 
 #timer-setup {
-    text-align: center;
-    position: relative;
-    left: 0;
+	text-align: center;
+	position: relative;
+	left: 0;
 
-    -moz-transition: left 0.5s;
-    -webkit-transition: left 0.5s;
-    -o-transition: left 0.5s;
-    transition: left 0.5s;
+	-moz-transition: left 0.5s;
+	-webkit-transition: left 0.5s;
+	-o-transition: left 0.5s;
+	transition: left 0.5s;
 }
 
 #timer-setup > input {
-    font-family: "Helvetica", "Arial", "sans-serif";
-    width: 80px;
-    padding: 5px;
-    font-size: 100%;
-    border: 1px solid gainsboro;
-    border-radius: 3px;
-    box-shadow: inset 0 0 1px 1px gainsboro;
+	font-family: "Helvetica", "Arial", "sans-serif";
+	width: 80px;
+	margin: 10px;
+	padding: 5px;
+	font-size: 100%;
+	border: 1px solid gainsboro;
+	border-radius: 3px;
+	box-shadow: inset 0 0 1px 1px gainsboro;
+}
+
+#timer-setup > input[type="radio"] {
+	width: 16px;
+	vertical-align: middle;
 }
 
 #timer-setup > label {
-    display: inline-block;
+	display: inline-block;
 }
 
 #timer-setup > button {
-    margin-left: 50px;
-    font-size: 100%;
-    padding: 5px 15px;
+	margin-left: 50px;
+	font-size: 100%;
+	padding: 5px 15px;
+	margin-top: 20px;
 }
 
 #countdown {
-    box-shadow: 0 0 5px gray;
-    position: fixed;
-    top: 33%;
-    left: -10000;
-    height: 180px;
-    width: 100%;
-    background-color: none;
+	box-shadow: 0 0 5px gray;
+	position: fixed;
+	top: 33%;
+	left: -10000;
+	height: 180px;
+	width: 100%;
+	background-color: none;
 
-    -moz-transition: background-color 1s, left 0.5s;
-    -webkit-transition: background-color 1s, left 0.5s;
-    -o-transition: background-color 1s, left 0.5s;
-    transition: background-color 1s, left 0.5s;
+	-moz-transition: background-color 1s, left 0.5s;
+	-webkit-transition: background-color 1s, left 0.5s;
+	-o-transition: background-color 1s, left 0.5s;
+	transition: background-color 1s, left 0.5s;
 }
 
 #countdown > .display {
-    margin: 10px 0 0 0;
-    font-size: 3.8em;
-    text-align: center;
+	margin: 10px 0 0 0;
+	font-size: 3.8em;
+	text-align: center;
 }
 
 #countdown > .cancel {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	width: 40px;
+	height: 40px;
 }
